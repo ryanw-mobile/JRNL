@@ -24,5 +24,8 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func unwindNewEntryCancel(segue: UIStoryboardSegue) {
+        
+    }
 
 }
