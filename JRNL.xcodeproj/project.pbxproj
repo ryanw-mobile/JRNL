@@ -15,6 +15,7 @@
 		0D4DF4A62BAA4D1400659C49 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 0D4DF4A52BAA4D1400659C49 /* Base */; };
 		0DD658432BB5C6CD00AA130E /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD658422BB5C6CD00AA130E /* JournalEntry.swift */; };
 		0DD658452BB5D1EF00AA130E /* JournalListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD658442BB5D1EF00AA130E /* JournalListTableViewCell.swift */; };
+		0DD658482BB5E60500AA130E /* AddJournalEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD658472BB5E60500AA130E /* AddJournalEntryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0D4DF4A72BAA4D1400659C49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DD658422BB5C6CD00AA130E /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		0DD658442BB5D1EF00AA130E /* JournalListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListTableViewCell.swift; sourceTree = "<group>"; };
+		0DD658472BB5E60500AA130E /* AddJournalEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJournalEntryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		0D4DF4982BAA4D1300659C49 /* JRNL */ = {
 			isa = PBXGroup;
 			children = (
+				0DD658462BB5E5C600AA130E /* Add New Journal Entry Screen */,
 				0D4DF4992BAA4D1300659C49 /* AppDelegate.swift */,
 				0D4DF49B2BAA4D1300659C49 /* SceneDelegate.swift */,
 				0DD6583F2BB5C69300AA130E /* Journal List Screen */,
@@ -95,6 +98,14 @@
 				0DD658442BB5D1EF00AA130E /* JournalListTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0DD658462BB5E5C600AA130E /* Add New Journal Entry Screen */ = {
+			isa = PBXGroup;
+			children = (
+				0DD658472BB5E60500AA130E /* AddJournalEntryViewController.swift */,
+			);
+			path = "Add New Journal Entry Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +184,7 @@
 				0DD658432BB5C6CD00AA130E /* JournalEntry.swift in Sources */,
 				0DD658452BB5D1EF00AA130E /* JournalListTableViewCell.swift in Sources */,
 				0D4DF49C2BAA4D1300659C49 /* SceneDelegate.swift in Sources */,
+				0DD658482BB5E60500AA130E /* AddJournalEntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -100,7 +100,7 @@
         <!--New Entry-->
         <scene sceneID="SBK-jX-YPi">
             <objects>
-                <viewController id="bLs-AC-m8K" sceneMemberID="viewController">
+                <viewController id="bLs-AC-m8K" customClass="AddJournalEntryViewController" customModule="JRNL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JX1-jQ-LgR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,8 +173,17 @@
                                 <segue destination="ccQ-xK-vIk" kind="unwind" unwindAction="unwindNewEntryCancelWithSegue:" id="5OY-h3-ALY"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="4zw-Ud-XPk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="4zw-Ud-XPk">
+                            <connections>
+                                <segue destination="ccQ-xK-vIk" kind="unwind" unwindAction="unwindNewEntrySaveWithSegue:" id="XCK-Lg-gln"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="bodyTextView" destination="igW-9f-qfl" id="c8y-py-rOm"/>
+                        <outlet property="photoImageView" destination="0wX-eR-6qB" id="ApC-9u-S25"/>
+                        <outlet property="titleTextField" destination="RRn-49-QnQ" id="bHS-cS-8DP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dwz-pZ-eAS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ccQ-xK-vIk" userLabel="Exit" sceneMemberID="exit"/>
