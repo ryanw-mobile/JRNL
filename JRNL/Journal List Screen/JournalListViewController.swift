@@ -16,7 +16,7 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         sampleJournalEntryData.createSampleJournalEntryData()
     }
-
+    
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sampleJournalEntryData.journalEntries.count
@@ -40,7 +40,7 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.reloadData()
         }
     }
-
+    
     // MARK: - Methods
     @IBAction func unwindNewEntryCancel(segue: UIStoryboardSegue) {
         
@@ -55,5 +55,20 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.reloadData()
         }
     }
-
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard segue.identifier == "entryDetail" else {
+            return
+        }
+        
+        guard let journalEntryDetailViewController = segue.destination as? JournalEntryDetailViewController,
+              let selectedJournalEntryCell = sender as? JournalListTableViewCell,
+              let indexPath = tableView.indexPath(for: selectedJournalEntryCell) else {
+            fatalError("Could not get indexPath")
+        }
+        let selectedJournalEntry = sampleJournalEntryData.journalEntries[indexPath.row]
+        journalEntryDetailViewController.selectedJournalEntry = selectedJournalEntry
+    }
 }

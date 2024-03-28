@@ -63,7 +63,7 @@
                                             <outlet property="dateLabel" destination="FSY-qO-vXa" id="dJg-1p-TDf"/>
                                             <outlet property="photoImageView" destination="fHg-Ss-Aox" id="K40-k6-BLy"/>
                                             <outlet property="titleLabel" destination="17H-Gd-jeY" id="I9A-SI-jC5"/>
-                                            <segue destination="tKu-eD-dUd" kind="show" id="JUl-qq-A4G"/>
+                                            <segue destination="tKu-eD-dUd" kind="show" identifier="entryDetail" id="JUl-qq-A4G"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -222,7 +222,7 @@
         <!--Entry Detail-->
         <scene sceneID="IqM-Gs-GJ6">
             <objects>
-                <tableViewController id="tKu-eD-dUd" sceneMemberID="viewController">
+                <tableViewController id="tKu-eD-dUd" customClass="JournalEntryDetailViewController" customModule="JRNL" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="LHI-RK-veX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -346,7 +346,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="316"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NN9-ml-HSE">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NN9-ml-HSE">
                                                     <rect key="frame" x="37.5" y="8.5" width="300" height="298.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="300" id="VUa-7F-fbA"/>
@@ -377,6 +377,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Entry Detail" id="ah1-r1-x0c"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="OI1-q6-Kl7" id="68v-2s-nxb"/>
+                        <outlet property="photoImageView" destination="rg5-2I-BtE" id="yhh-Jt-von"/>
+                        <outlet property="titleLabel" destination="d81-vQ-VZJ" id="nxX-C0-QGb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AdI-7i-qvH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

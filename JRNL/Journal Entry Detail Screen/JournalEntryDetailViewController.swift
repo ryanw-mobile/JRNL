@@ -13,17 +13,15 @@ class JournalEntryDetailViewController: UITableViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var photoImageView: UIImageView!
+    var selectedJournalEntry: JournalEntry?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        dateLabel.text = selectedJournalEntry?.date.formatted(
+            .dateTime.day().month(.wide).year()
+        )
+        titleLabel.text = selectedJournalEntry?.entryTitle
+        bodyTextView.text = selectedJournalEntry?.entryBody
+        photoImageView.image = selectedJournalEntry?.photo
     }
-
-  
-
 }
