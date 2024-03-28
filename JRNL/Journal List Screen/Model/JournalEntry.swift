@@ -38,44 +38,42 @@ class JournalEntry {
         self.latitude = latitude
         self.longitude = longitude
     }
-    
-    // MARK: - Sample data
-    struct SampleJournalEntryData {
-        var journalEntries: [JournalEntry] = []
-        mutating func createSampleJournalEntryData() {
-            let photo1 = UIImage(systemName: "sun.max")
-            let photo2 = UIImage(systemName: "cloud")
-            let photo3 = UIImage(systemName: "cloud.sun")
-            guard let journalEntry1 = 
-                    JournalEntry(rating: 5,
-                                 title: "Good",
-                                body: "Today is a good day",
-                                photo: photo1
-                    ) else {
-                fatalError("Unable to instantiate journalEntry1")
-            }
-            
-            guard let journalEntry2 =
-                    JournalEntry(rating: 0,
-                                 title: "Bad",
-                                 body: "Today is a bad day",
-                                 photo: photo2
-                    ) else {
-                fatalError("Unable to instantiate journalEntry2")
-            }
+}
 
-            guard let journalEntry3 =
-                    JournalEntry(rating: 3,
-                                 title: "Ok",
-                                 body: "Today is am Ok day",
-                                 photo: photo3
-                    ) else {
-                fatalError("Unable to instantiate journalEntry2")
-            }
-
-            journalEntries += [journalEntry1, journalEntry2, journalEntry3]
-
+// MARK: - Sample data
+struct SampleJournalEntryData {
+    var journalEntries: [JournalEntry] = []
+    mutating func createSampleJournalEntryData() {
+        let photo1 = UIImage(systemName: "sun.max")
+        let photo2 = UIImage(systemName: "cloud")
+        let photo3 = UIImage(systemName: "cloud.sun")
+        guard let journalEntry1 =
+                JournalEntry(rating: 5,
+                             title: "Good",
+                            body: "Today is a good day",
+                            photo: photo1
+                ) else {
+            fatalError("Unable to instantiate journalEntry1")
         }
+        
+        guard let journalEntry2 =
+                JournalEntry(rating: 0,
+                             title: "Bad",
+                             body: "Today is a bad day",
+                             photo: photo2
+                ) else {
+            fatalError("Unable to instantiate journalEntry2")
+        }
+
+        guard let journalEntry3 =
+                JournalEntry(rating: 3,
+                             title: "Ok",
+                             body: "Today is am Ok day",
+                             photo: photo3
+                ) else {
+            fatalError("Unable to instantiate journalEntry2")
+        }
+
+        journalEntries += [journalEntry1, journalEntry2, journalEntry3]
     }
-    
 }
