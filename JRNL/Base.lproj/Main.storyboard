@@ -378,6 +378,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Entry Detail" id="ah1-r1-x0c"/>
                     <connections>
+                        <outlet property="bodyTextView" destination="dSB-fw-tX5" id="nf0-Dj-m9R"/>
                         <outlet property="dateLabel" destination="OI1-q6-Kl7" id="68v-2s-nxb"/>
                         <outlet property="photoImageView" destination="rg5-2I-BtE" id="yhh-Jt-von"/>
                         <outlet property="titleLabel" destination="d81-vQ-VZJ" id="nxX-C0-QGb"/>
