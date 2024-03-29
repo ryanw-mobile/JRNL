@@ -119,8 +119,11 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="j5G-g1-zSM">
                                         <rect key="frame" x="90.5" y="52" width="154" height="31"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yE1-PD-RWY">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yE1-PD-RWY">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="getLocationSwitchValueChanged:" destination="bLs-AC-m8K" eventType="valueChanged" id="6PN-aw-H7m"/>
+                                                </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qov-lQ-KgV">
                                                 <rect key="frame" x="57" y="0.0" width="97" height="31"/>
@@ -181,6 +184,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="igW-9f-qfl" id="c8y-py-rOm"/>
+                        <outlet property="getLocationSwitch" destination="yE1-PD-RWY" id="jS7-eL-0ZD"/>
+                        <outlet property="getLocationSwitchLabel" destination="Qov-lQ-KgV" id="8ek-50-hOS"/>
                         <outlet property="photoImageView" destination="0wX-eR-6qB" id="ApC-9u-S25"/>
                         <outlet property="saveButton" destination="4zw-Ud-XPk" id="OEs-VW-PIS"/>
                         <outlet property="titleTextField" destination="RRn-49-QnQ" id="bHS-cS-8DP"/>
@@ -194,7 +199,7 @@
         <!--Map-->
         <scene sceneID="6VY-co-b42">
             <objects>
-                <viewController id="uCh-Db-bAa" sceneMemberID="viewController">
+                <viewController id="uCh-Db-bAa" customClass="MapViewController" customModule="JRNL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qoQ-l5-JmI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -214,6 +219,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="6uK-Jb-hcl"/>
+                    <connections>
+                        <outlet property="mapView" destination="0cm-14-rNh" id="3p4-Jx-Y4v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICt-IB-qfU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
