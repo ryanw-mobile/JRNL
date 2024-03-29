@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import MapKit
 
-class JournalEntry {
+class JournalEntry: NSObject, MKAnnotation {
     // MARK: - Properties
     let date: Date
     let rating: Int
@@ -38,6 +39,28 @@ class JournalEntry {
         self.latitude = latitude
         self.longitude = longitude
     }
+    
+    var coordinate: CLLocationCoordinate2D {
+        guard let lat = latitude, let long = longitude
+        else {
+            return CLLocationCoordinate2D()
+        }
+        
+        return CLLocationCoordinate2D(
+            latitude: lat,
+            longitude: long
+        )
+    }
+    
+    var title: String? {
+        date.formatted(
+            .dateTime.day().month().year()
+        )
+    }
+    
+    var subtitle: String? {
+        entryTitle
+    }
 }
 
 // MARK: - Sample data
@@ -60,7 +83,9 @@ struct SampleJournalEntryData {
                 JournalEntry(rating: 0,
                              title: "Bad",
                              body: "Today is a bad day",
-                             photo: photo2
+                             photo: photo2,
+                             latitude: 37.3318,
+                             longitude: -122.0312
                 ) else {
             fatalError("Unable to instantiate journalEntry2")
         }

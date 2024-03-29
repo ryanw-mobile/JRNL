@@ -221,6 +221,7 @@
                     <navigationItem key="navigationItem" title="Map" id="6uK-Jb-hcl"/>
                     <connections>
                         <outlet property="mapView" destination="0cm-14-rNh" id="3p4-Jx-Y4v"/>
+                        <segue destination="tKu-eD-dUd" kind="show" identifier="showMapDetail" id="Olq-RJ-WOp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICt-IB-qfU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -354,7 +355,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="316"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NN9-ml-HSE">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NN9-ml-HSE">
                                                     <rect key="frame" x="37.5" y="8.5" width="300" height="298.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="300" id="VUa-7F-fbA"/>
@@ -388,13 +389,14 @@
                     <connections>
                         <outlet property="bodyTextView" destination="dSB-fw-tX5" id="nf0-Dj-m9R"/>
                         <outlet property="dateLabel" destination="OI1-q6-Kl7" id="68v-2s-nxb"/>
+                        <outlet property="mapImageView" destination="NN9-ml-HSE" id="MI4-1y-dzV"/>
                         <outlet property="photoImageView" destination="rg5-2I-BtE" id="yhh-Jt-von"/>
                         <outlet property="titleLabel" destination="d81-vQ-VZJ" id="nxX-C0-QGb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AdI-7i-qvH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2850" y="-7"/>
+            <point key="canvasLocation" x="3292" y="342"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="F9x-Rs-Afc">
@@ -472,6 +474,9 @@
             <point key="canvasLocation" x="2849" y="-739"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Olq-RJ-WOp"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="face.smiling" catalog="system" width="128" height="123"/>
         <image name="map" catalog="system" width="128" height="112"/>
@@ -483,7 +488,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
