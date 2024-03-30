@@ -13,18 +13,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     // MARK: - Properties
     @IBOutlet var mapView: MKMapView!
     let locationManager = CLLocationManager()
-    var sampleJournalEntryData = SampleJournalEntryData()
     var selectedJournalEntry: JournalEntry?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         self.navigationItem.title = "Loading..."
-        locationManager.requestLocation()
         mapView.delegate = self
-        sampleJournalEntryData.createSampleJournalEntryData()
-        mapView.addAnnotations(sampleJournalEntryData.journalEntries)
+    }
+    
+    override func viewIsAppearing(
+        _ animated: Bool
+    ) {
+        super.viewIsAppearing(
+            animated
+        )
+        locationManager.requestLocation()
     }
     
     // MARK: - CLLocationManagerDelegate
@@ -39,6 +45,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             mapView.region = setInitialRegion(
                 lat: lat,
                 long: long
+            )
+            mapView.addAnnotations(
+                SharedData.shared.getAllJournalEntries()
             )
         }
     }
@@ -71,7 +80,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 )
                 annotationView.canShowCallout = true
                 
-                let calloutButton = UIButton(type: .detailDisclosure)
+                let calloutButton = UIButton(
+                    type: .detailDisclosure
+                )
                 annotationView.rightCalloutAccessoryView = calloutButton
                 
                 return annotationView
@@ -85,7 +96,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotationView view: MKAnnotationView,
         calloutAccessoryControlTapped control: UIControl
     ) {
-        guard let annotation = mapView.selectedAnnotations.first 
+        guard let annotation = mapView.selectedAnnotations.first
         else {
             return
         }
