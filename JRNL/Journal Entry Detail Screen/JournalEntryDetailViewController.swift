@@ -19,12 +19,14 @@ class JournalEntryDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateLabel.text = selectedJournalEntry?.date.formatted(
-            .dateTime.day().month(.wide).year()
-        )
+        dateLabel.text = selectedJournalEntry?.dateString
         titleLabel.text = selectedJournalEntry?.entryTitle
         bodyTextView.text = selectedJournalEntry?.entryBody
-        photoImageView.image = selectedJournalEntry?.photo
+        if let photoData = selectedJournalEntry?.photoData {
+            photoImageView.image = UIImage(
+                data: photoData
+            )
+        }
         getMapSnapshot()
     }
     
@@ -42,12 +44,12 @@ class JournalEntryDetailViewController: UITableViewController {
                     longitudeDelta: 0.01
                 )
             )
-
+            
             options.size = CGSize(
                 width: 300,
                 height: 300
             )
-
+            
             options.preferredConfiguration = MKStandardMapConfiguration()
             
             let snapShotter = MKMapSnapshotter(

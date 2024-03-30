@@ -34,10 +34,13 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         let journalEntry = SharedData.shared.getJournalEntry(
             index: indexPath.row
         )
-        journalCell.photoImageView.image = journalEntry.photo
-        journalCell.dateLabel.text = journalEntry.date.formatted(
-            .dateTime.month().day().year()
-        )
+        
+        if let photoData = journalEntry.photoData {
+            journalCell.photoImageView.image = UIImage(
+                data: photoData
+            )
+        }
+        journalCell.dateLabel.text = journalEntry.dateString
         journalCell.titleLabel.text = journalEntry.entryTitle
         return journalCell
     }
