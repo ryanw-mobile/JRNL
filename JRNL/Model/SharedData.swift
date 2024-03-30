@@ -47,4 +47,58 @@ class SharedData {
             at: index
         )
     }
+    
+    // MARK: - Persistence
+    func getDocumentDirectory() -> URL {
+        let paths = FileManager.default.urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        )
+        return paths[0]
+    }
+    
+    func loadJournalEntriesData() {
+        let pathDirectory = getDocumentDirectory()
+        let fileURL = pathDirectory.appendingPathComponent(
+            "journalEntriesData.json"
+        )
+        
+        do {
+            let data = try Data(
+                contentsOf: fileURL
+            )
+            let journalEntriesData = try JSONDecoder().decode(
+                [JournalEntry].self,
+                from: data
+            )
+            journalEntries = journalEntriesData
+        } catch {
+            print(
+                "Failed to read JSON data: \(error.localizedDescription)"
+            )
+        }
+    }
+    
+    func saveJournalEntriesData() {
+        let pathDirectory = getDocumentDirectory()
+        try? FileManager().createDirectory(
+            at: pathDirectory,
+            withIntermediateDirectories: true
+        )
+        let filePath = pathDirectory.appendingPathComponent(
+            "journalEntriesData.json"
+        )
+        let json = try? JSONEncoder().encode(
+            journalEntries
+        )
+        do {
+            try json!.write(
+                to: filePath
+            )
+        } catch {
+            print(
+                "Failed to write JSON data: \(error.localizedDescription)"
+            )
+        }
+    }
 }

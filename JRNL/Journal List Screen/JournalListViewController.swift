@@ -13,6 +13,7 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SharedData.shared.loadJournalEntriesData()
     }
     
     // MARK: - UITableViewDataSource
@@ -55,6 +56,7 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             SharedData.shared.removeJournalEntry(
                 index: indexPath.row
             )
+            SharedData.shared.saveJournalEntriesData()
             tableView.reloadData()
         }
     }
@@ -74,6 +76,7 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             SharedData.shared.addJournalEntry(
                 newJournalEntry: newJournalEntry
             )
+            SharedData.shared.saveJournalEntriesData()
             tableView.reloadData()
         }
     }
