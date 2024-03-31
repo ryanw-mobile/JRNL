@@ -7,13 +7,22 @@
 
 import UIKit
 
-class JournalListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class JournalListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     // MARK: - Properties
 
     @IBOutlet var tableView: UITableView!
+    let search = UISearchController(
+        searchResultsController: nil
+    )
+    var filteredTableData: [JournalEntry] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         SharedData.shared.loadJournalEntriesData()
+        self.search.searchResultsUpdater = self
+        self.search.obscuresBackgroundDuringPresentation = false
+        self.search.searchBar.placeholder = "Search titles"
+        navigationItem.searchController = self.search
     }
 
     // MARK: - UITableViewDataSource
@@ -22,7 +31,11 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        SharedData.shared.numberOfJournalEntries()
+        if self.search.isActive {
+            return self.filteredTableData.count
+        } else {
+            return SharedData.shared.numberOfJournalEntries()
+        }
     }
 
     func tableView(
@@ -33,10 +46,16 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             withIdentifier: "journalCell",
             for: indexPath
         ) as! JournalListTableViewCell
-        let journalEntry = SharedData.shared.getJournalEntry(
-            index: indexPath.row
-        )
-        
+
+        let journalEntry: JournalEntry
+        if self.search.isActive {
+            journalEntry = self.filteredTableData[indexPath.row]
+        } else {
+            journalEntry = SharedData.shared.getJournalEntry(
+                index: indexPath.row
+            )
+        }
+
         if let photoData = journalEntry.photoData {
             journalCell.photoImageView.image = UIImage(
                 data: photoData
@@ -55,9 +74,15 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            SharedData.shared.removeJournalEntry(
-                index: indexPath.row
-            )
+            if self.search.isActive {
+                let selectedJournalEntry = self.filteredTableData[indexPath.row]
+                self.filteredTableData.remove(at: indexPath.row)
+                SharedData.shared.removeSelectedJournalEntry(selectedJournalEntry)
+            } else {
+                SharedData.shared.removeJournalEntry(
+                    index: indexPath.row
+                )
+            }
             SharedData.shared.saveJournalEntriesData()
             tableView.reloadData()
         }
@@ -107,9 +132,38 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
                 "Could not get indexPath"
             )
         }
-        let selectedJournalEntry = SharedData.shared.getJournalEntry(
-            index: indexPath.row
-        )
+
+        let selectedJournalEntry: JournalEntry
+        if self.search.isActive {
+            selectedJournalEntry = self.filteredTableData[indexPath.row]
+        } else {
+            selectedJournalEntry = SharedData.shared.getJournalEntry(
+                index: indexPath.row
+            )
+        }
         journalEntryDetailViewController.selectedJournalEntry = selectedJournalEntry
+    }
+
+    // MARK: - Search
+
+    func updateSearchResults(
+        for searchController: UISearchController
+    ) {
+        guard let searchBarText = searchController.searchBar.text else {
+            return
+        }
+
+        self.filteredTableData.removeAll()
+        for journalEntry in SharedData.shared.getAllJournalEntries() {
+            if journalEntry.entryTitle.lowercased().contains(
+                searchBarText.lowercased()
+            ) {
+                self.filteredTableData.append(
+                    journalEntry
+                )
+            }
+        }
+
+        self.tableView.reloadData()
     }
 }
