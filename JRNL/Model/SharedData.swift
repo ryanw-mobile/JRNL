@@ -52,6 +52,12 @@ class SharedData {
         )
     }
 
+    func removeSelectedJournalEntry(_ selectedJournalEntry: JournalEntry) {
+        self.journalEntries.removeAll {
+            $0.key == selectedJournalEntry.key
+        }
+    }
+
     // MARK: - Persistence
 
     func getDocumentDirectory() -> URL {
