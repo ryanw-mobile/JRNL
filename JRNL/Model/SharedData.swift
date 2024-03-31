@@ -6,49 +6,54 @@
 //
 
 import UIKit
+
 class SharedData {
     // MARK: - Properties
+
     static let shared = SharedData()
     private var journalEntries: [JournalEntry]
-    
+
     // MARK: - Private
+
     private init() {
-        journalEntries = []
+        self.journalEntries = []
     }
-    
+
     // MARK: - Access methods
+
     func numberOfJournalEntries() -> Int {
-        journalEntries.count
+        self.journalEntries.count
     }
-    
+
     func getJournalEntry(
         index: Int
     ) -> JournalEntry {
-        journalEntries[index]
+        self.journalEntries[index]
     }
-    
+
     func getAllJournalEntries() -> [JournalEntry] {
-        let readOnlyJournalEntries = journalEntries
+        let readOnlyJournalEntries = self.journalEntries
         return readOnlyJournalEntries
     }
-    
+
     func addJournalEntry(
         newJournalEntry: JournalEntry
     ) {
-        journalEntries.append(
+        self.journalEntries.append(
             newJournalEntry
         )
     }
-    
+
     func removeJournalEntry(
         index: Int
     ) {
-        journalEntries.remove(
+        self.journalEntries.remove(
             at: index
         )
     }
-    
+
     // MARK: - Persistence
+
     func getDocumentDirectory() -> URL {
         let paths = FileManager.default.urls(
             for: .documentDirectory,
@@ -56,13 +61,13 @@ class SharedData {
         )
         return paths[0]
     }
-    
+
     func loadJournalEntriesData() {
-        let pathDirectory = getDocumentDirectory()
+        let pathDirectory = self.getDocumentDirectory()
         let fileURL = pathDirectory.appendingPathComponent(
             "journalEntriesData.json"
         )
-        
+
         do {
             let data = try Data(
                 contentsOf: fileURL
@@ -71,16 +76,16 @@ class SharedData {
                 [JournalEntry].self,
                 from: data
             )
-            journalEntries = journalEntriesData
+            self.journalEntries = journalEntriesData
         } catch {
             print(
                 "Failed to read JSON data: \(error.localizedDescription)"
             )
         }
     }
-    
+
     func saveJournalEntriesData() {
-        let pathDirectory = getDocumentDirectory()
+        let pathDirectory = self.getDocumentDirectory()
         try? FileManager().createDirectory(
             at: pathDirectory,
             withIntermediateDirectories: true
@@ -89,7 +94,7 @@ class SharedData {
             "journalEntriesData.json"
         )
         let json = try? JSONEncoder().encode(
-            journalEntries
+            self.journalEntries
         )
         do {
             try json!.write(

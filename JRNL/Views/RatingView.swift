@@ -9,29 +9,33 @@ import UIKit
 
 class RatingView: UIStackView {
     // MARK: - Properties
+
     private var ratingButtons = [UIButton()]
     var rating = 0 {
         didSet {
-            updateButtonSelectionStates()
+            self.updateButtonSelectionStates()
         }
     }
+
     private let buttonSize = CGSize(
         width: 44.0,
         height: 44.0
     )
     private let buttonCount = 5
-    
+
     // MARK: - Initialization
+
     required init(
         coder: NSCoder
     ) {
         super.init(
             coder: coder
         )
-        setupButtons()
+        self.setupButtons()
     }
-    
+
     // MARK: - Action
+
     @objc func ratingButtonTapped(
         button: UIButton
     ) {
@@ -39,33 +43,34 @@ class RatingView: UIStackView {
             of: button
         ) else {
             fatalError(
-                "The button, \(button), is not in the ratingButtons array: \(ratingButtons)"
+                "The button, \(button), is not in the ratingButtons array: \(self.ratingButtons)"
             )
         }
-        
+
         let selectedRating = index + 1
-        if selectedRating == rating {
-            rating = 0
+        if selectedRating == self.rating {
+            self.rating = 0
         } else {
-            rating = selectedRating
+            self.rating = selectedRating
         }
     }
-    
+
     // MARK: - Private methods
+
     private func setupButtons() {
-        for button in ratingButtons {
+        for button in self.ratingButtons {
             removeArrangedSubview(
                 button
             )
             button.removeFromSuperview()
         }
-        
-        ratingButtons.removeAll()
+
+        self.ratingButtons.removeAll()
         let filledStar = UIImage(
-            systemName:"star.fill"
+            systemName: "star.fill"
         )
         let emptyStar = UIImage(
-            systemName:"star"
+            systemName: "star"
         )
         let highlightedStar = UIImage(
             systemName: "star.fill"
@@ -73,8 +78,8 @@ class RatingView: UIStackView {
             .red,
             renderingMode: .alwaysOriginal
         )
-        
-        for _ in 0..<buttonCount {
+
+        for _ in 0 ..< self.buttonCount {
             let button = UIButton()
             button.setImage(
                 emptyStar,
@@ -92,21 +97,21 @@ class RatingView: UIStackView {
                 highlightedStar,
                 for: [
                     .highlighted,
-                    .selected
+                    .selected,
                 ]
             )
-            
+
             button.translatesAutoresizingMaskIntoConstraints = false
-            
+
             button.heightAnchor.constraint(
-                equalToConstant: buttonSize.height
+                equalToConstant: self.buttonSize.height
             )
             .isActive = true
             button.widthAnchor.constraint(
-                equalToConstant: buttonSize.width
+                equalToConstant: self.buttonSize.width
             )
             .isActive = true
-            
+
             button.addTarget(
                 self,
                 action: #selector(
@@ -116,19 +121,19 @@ class RatingView: UIStackView {
                 ),
                 for: .touchUpInside
             )
-            
+
             addArrangedSubview(
                 button
             )
-            ratingButtons.append(
+            self.ratingButtons.append(
                 button
             )
         }
     }
-    
+
     private func updateButtonSelectionStates() {
-        for (index, button) in ratingButtons.enumerated() {
-            button.isSelected = index < rating
+        for (index, button) in self.ratingButtons.enumerated() {
+            button.isSelected = index < self.rating
         }
     }
 }

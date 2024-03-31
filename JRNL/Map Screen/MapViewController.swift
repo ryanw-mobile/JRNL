@@ -5,35 +5,37 @@
 //  Created by 🇭🇰Ry Wong on 28/03/2024.
 //
 
-import UIKit
 import CoreLocation
 import MapKit
+import UIKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     // MARK: - Properties
+
     @IBOutlet var mapView: MKMapView!
     let locationManager = CLLocationManager()
     var selectedJournalEntry: JournalEntry?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         self.navigationItem.title = "Loading..."
-        mapView.delegate = self
+        self.mapView.delegate = self
     }
-    
+
     override func viewIsAppearing(
         _ animated: Bool
     ) {
         super.viewIsAppearing(
             animated
         )
-        locationManager.requestLocation()
+        self.locationManager.requestLocation()
     }
-    
+
     // MARK: - CLLocationManagerDelegate
+
     func locationManager(
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
@@ -42,16 +44,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let lat = myCurrentLocation.coordinate.latitude
             let long = myCurrentLocation.coordinate.longitude
             self.navigationItem.title = "Map"
-            mapView.region = setInitialRegion(
+            self.mapView.region = self.setInitialRegion(
                 lat: lat,
                 long: long
             )
-            mapView.addAnnotations(
+            self.mapView.addAnnotations(
                 SharedData.shared.getAllJournalEntries()
             )
         }
     }
-    
+
     func locationManager(
         _ manager: CLLocationManager,
         didFailWithError error: Error
@@ -60,8 +62,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             "Failed to find user's location: \(error.localizedDescription)"
         )
     }
-    
+
     // MARK: - MKMapViewDelegate
+
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
@@ -75,22 +78,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 return annotationView
             } else {
                 let annotationView = MKMarkerAnnotationView(
-                    annotation:annotation,
-                    reuseIdentifier:identifier
+                    annotation: annotation,
+                    reuseIdentifier: identifier
                 )
                 annotationView.canShowCallout = true
-                
+
                 let calloutButton = UIButton(
                     type: .detailDisclosure
                 )
                 annotationView.rightCalloutAccessoryView = calloutButton
-                
+
                 return annotationView
             }
         }
         return nil
     }
-    
+
     func mapView(
         _ mapView: MKMapView,
         annotationView view: MKAnnotationView,
@@ -100,15 +103,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         else {
             return
         }
-        
-        selectedJournalEntry = annotation as? JournalEntry
+
+        self.selectedJournalEntry = annotation as? JournalEntry
         self.performSegue(
             withIdentifier: "showMapDetail",
             sender: self
         )
     }
-    
+
     // MARK: - Navigation
+
     override func prepare(
         for segue: UIStoryboardSegue,
         sender: Any?
@@ -122,18 +126,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 "Unexpected segue identifier"
             )
         }
-        
+
         guard let entryDetailViewController = segue.destination as?
-                JournalEntryDetailViewController else {
+            JournalEntryDetailViewController
+        else {
             fatalError(
                 "Unexpected view controller"
             )
         }
-        
-        entryDetailViewController.selectedJournalEntry = selectedJournalEntry
+
+        entryDetailViewController.selectedJournalEntry = self.selectedJournalEntry
     }
-    
+
     // MARK: - Private methods
+
     func setInitialRegion(
         lat: CLLocationDegrees,
         long: CLLocationDegrees

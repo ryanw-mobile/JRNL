@@ -9,21 +9,22 @@ import UIKit
 
 class JournalListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: - Properties
+
     @IBOutlet var tableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SharedData.shared.loadJournalEntriesData()
     }
-    
+
     // MARK: - UITableViewDataSource
+
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
         SharedData.shared.numberOfJournalEntries()
     }
-    
+
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
@@ -45,8 +46,9 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         journalCell.titleLabel.text = journalEntry.entryTitle
         return journalCell
     }
-    
+
     // MARK: - UITableViewDelegate
+
     func tableView(
         _ tableView: UITableView,
         commit editingStyle: UITableViewCell.EditingStyle,
@@ -60,28 +62,29 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.reloadData()
         }
     }
-    
+
     // MARK: - Methods
+
     @IBAction func unwindNewEntryCancel(
         segue: UIStoryboardSegue
-    ) {
-        
-    }
-    
+    ) {}
+
     @IBAction func unwindNewEntrySave(
         segue: UIStoryboardSegue
     ) {
         if let sourceViewController = segue.source as? AddJournalEntryViewController,
-           let newJournalEntry = sourceViewController.newJournalEntry {
+           let newJournalEntry = sourceViewController.newJournalEntry
+        {
             SharedData.shared.addJournalEntry(
                 newJournalEntry: newJournalEntry
             )
             SharedData.shared.saveJournalEntriesData()
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
-    
+
     // MARK: - Navigation
+
     override func prepare(
         for segue: UIStoryboardSegue,
         sender: Any?
@@ -93,12 +96,13 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         guard segue.identifier == "entryDetail" else {
             return
         }
-        
+
         guard let journalEntryDetailViewController = segue.destination as? JournalEntryDetailViewController,
               let selectedJournalEntryCell = sender as? JournalListTableViewCell,
               let indexPath = tableView.indexPath(
-                for: selectedJournalEntryCell
-              ) else {
+                  for: selectedJournalEntryCell
+              )
+        else {
             fatalError(
                 "Could not get indexPath"
             )
