@@ -108,9 +108,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ioO-pr-WHQ">
                                 <rect key="frame" x="20" y="76" width="335" height="469"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lHg-AW-sQ0">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lHg-AW-sQ0" customClass="RatingView" customModule="JRNL" customModuleProvider="target">
                                         <rect key="frame" x="41.5" y="0.0" width="252" height="44"/>
-                                        <color key="backgroundColor" systemColor="systemCyanColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="252" id="KHa-yd-gFW"/>
                                             <constraint firstAttribute="height" constant="44" id="e5U-wg-jWR"/>
@@ -187,6 +186,7 @@
                         <outlet property="getLocationSwitch" destination="yE1-PD-RWY" id="jS7-eL-0ZD"/>
                         <outlet property="getLocationSwitchLabel" destination="Qov-lQ-KgV" id="8ek-50-hOS"/>
                         <outlet property="photoImageView" destination="0wX-eR-6qB" id="ApC-9u-S25"/>
+                        <outlet property="ratingView" destination="lHg-AW-sQ0" id="34S-Us-a91"/>
                         <outlet property="saveButton" destination="4zw-Ud-XPk" id="OEs-VW-PIS"/>
                         <outlet property="titleTextField" destination="RRn-49-QnQ" id="bHS-cS-8DP"/>
                     </connections>
@@ -267,9 +267,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="m9M-zR-F7Y">
+                                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="m9M-zR-F7Y" customClass="RatingView" customModule="JRNL" customModuleProvider="target">
                                                     <rect key="frame" x="61.5" y="8" width="252" height="44"/>
-                                                    <color key="backgroundColor" systemColor="systemCyanColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="252" id="3w0-6b-ipt"/>
                                                         <constraint firstAttribute="height" constant="44" id="zhZ-Dq-xEb"/>
@@ -391,6 +390,7 @@
                         <outlet property="dateLabel" destination="OI1-q6-Kl7" id="68v-2s-nxb"/>
                         <outlet property="mapImageView" destination="NN9-ml-HSE" id="MI4-1y-dzV"/>
                         <outlet property="photoImageView" destination="rg5-2I-BtE" id="yhh-Jt-von"/>
+                        <outlet property="ratingView" destination="m9M-zR-F7Y" id="eNf-5T-mRK"/>
                         <outlet property="titleLabel" destination="d81-vQ-VZJ" id="nxX-C0-QGb"/>
                     </connections>
                 </tableViewController>
@@ -486,9 +486,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
