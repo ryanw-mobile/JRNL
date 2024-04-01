@@ -7,10 +7,10 @@
 
 import UIKit
 
-class JournalListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
+class JournalListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating {
     // MARK: - Properties
 
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var collectionView: UICollectionView!
     let search = UISearchController(
         searchResultsController: nil
     )
@@ -19,18 +19,21 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         SharedData.shared.loadJournalEntriesData()
+        self.setupCollectionView()
         self.search.searchResultsUpdater = self
         self.search.obscuresBackgroundDuringPresentation = false
         self.search.searchBar.placeholder = "Search titles"
         navigationItem.searchController = self.search
     }
 
-    // MARK: - UITableViewDataSource
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
 
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
+    // MARK: - UICollectionViewDataSource
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.search.isActive {
             return self.filteredTableData.count
         } else {
@@ -38,15 +41,8 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let journalCell = tableView.dequeueReusableCell(
-            withIdentifier: "journalCell",
-            for: indexPath
-        ) as! JournalListTableViewCell
-
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let journalCell = collectionView.dequeueReusableCell(withReuseIdentifier: "journalCell", for: indexPath) as! JournalListCollectionViewCell
         let journalEntry: JournalEntry
         if self.search.isActive {
             journalEntry = self.filteredTableData[indexPath.row]
@@ -64,6 +60,30 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         journalCell.dateLabel.text = journalEntry.dateString
         journalCell.titleLabel.text = journalEntry.entryTitle
         return journalCell
+    }
+
+    // MARK: - UICollectionView delete method
+
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {
+            _ -> UIMenu? in
+            let delete = UIAction(title: "Delete") {
+                _ in
+                if self.search.isActive {
+                    let selectedJournalEntry = self.filteredTableData[indexPath.row]
+                    self.filteredTableData.remove(at: indexPath.row)
+                    SharedData.shared.removeSelectedJournalEntry(selectedJournalEntry)
+                } else {
+                    SharedData.shared.removeJournalEntry(
+                        index: indexPath.row
+                    )
+                }
+                SharedData.shared.saveJournalEntriesData()
+                self.collectionView.reloadData()
+            }
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: [delete])
+        }
+        return config
     }
 
     // MARK: - UITableViewDelegate
@@ -104,7 +124,7 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
                 newJournalEntry: newJournalEntry
             )
             SharedData.shared.saveJournalEntriesData()
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
 
@@ -123,8 +143,8 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
         }
 
         guard let journalEntryDetailViewController = segue.destination as? JournalEntryDetailViewController,
-              let selectedJournalEntryCell = sender as? JournalListTableViewCell,
-              let indexPath = tableView.indexPath(
+              let selectedJournalEntryCell = sender as? JournalListCollectionViewCell,
+              let indexPath = collectionView.indexPath(
                   for: selectedJournalEntryCell
               )
         else {
@@ -164,6 +184,32 @@ class JournalListViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
 
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
+    }
+
+    func setupCollectionView() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 10
+        self.collectionView.collectionViewLayout = flowLayout
+    }
+
+    // MARK: - UICollectionViewDelegateFlowLayout
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var columns: CGFloat
+        if traitCollection.horizontalSizeClass == .compact {
+            columns = 1
+        } else {
+            columns = 2
+        }
+
+        let viewWidth = collectionView.frame.width
+        let inset = 10.0
+        let contentWidth = viewWidth - inset * (columns + 1)
+        let cellWidth = contentWidth / columns
+        let cellHeight = 90.0
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }

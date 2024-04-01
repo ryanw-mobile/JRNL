@@ -7,7 +7,7 @@
 
 import UIKit
 
-class JournalListTableViewCell: UITableViewCell {
+class JournalListCollectionViewCell: UICollectionViewCell {
     @IBOutlet var photoImageView: UIImageView!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
