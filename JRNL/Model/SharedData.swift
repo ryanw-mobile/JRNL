@@ -2,7 +2,7 @@
 //  SharedData.swift
 //  JRNL
 //
-//  Created by 🇭🇰Ry Wong on 30/03/2024.
+//  Created by Ryan Wong on 30/03/2024.
 //
 
 import UIKit

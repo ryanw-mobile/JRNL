@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  JRNL
 //
-//  Created by 🇭🇰Ry Wong on 19/03/2024.
+//  Created by Ryan Wong on 19/03/2024.
 //
 
 import UIKit
