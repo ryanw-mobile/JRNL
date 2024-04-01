@@ -60,16 +60,15 @@ class SharedData {
 
     // MARK: - Persistence
 
-    func getDocumentDirectory() -> URL {
-        let paths = FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask
-        )
-        return paths[0]
+    func getAppGroupContainer() -> URL {
+        let appIdentifier = "group.com.rwmobi.jrnl"
+        let fileManager = FileManager.default
+        let containerURL = fileManager.containerURL(forSecurityApplicationGroupIdentifier: appIdentifier)
+        return containerURL!
     }
 
     func loadJournalEntriesData() {
-        let pathDirectory = self.getDocumentDirectory()
+        let pathDirectory = self.getAppGroupContainer()
         let fileURL = pathDirectory.appendingPathComponent(
             "journalEntriesData.json"
         )
@@ -91,7 +90,7 @@ class SharedData {
     }
 
     func saveJournalEntriesData() {
-        let pathDirectory = self.getDocumentDirectory()
+        let pathDirectory = self.getAppGroupContainer()
         try? FileManager().createDirectory(
             at: pathDirectory,
             withIntermediateDirectories: true

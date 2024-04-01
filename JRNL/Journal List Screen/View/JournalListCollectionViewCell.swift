@@ -1,5 +1,5 @@
 //
-//  JournalListTableViewCell.swift
+//  JournalListCollectionViewCell.swift
 //  JRNL
 //
 //  Created by Ryan Wong on 28/03/2024.
