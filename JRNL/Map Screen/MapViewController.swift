@@ -7,6 +7,7 @@
 
 import CoreLocation
 import MapKit
+import SwiftUI
 import UIKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
@@ -16,13 +17,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     var selectedJournalEntry: JournalEntry?
 
+    let globeView = UIHostingController(rootView: GlobeView())
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         self.navigationItem.title = "Loading..."
         self.mapView.delegate = self
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        #if os(visionOS)
+            addChild(self.globeView)
+            view.addSubview(self.globeView.view)
+            self.setupConstraints()
+        #endif
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        #if os(visionOS)
+            for child in self.children {
+                child.willMove(toParent: nil)
+                child.view.removeFromSuperview()
+                child.removeFromParent()
+            }
+        #endif
     }
 
     override func viewIsAppearing(
@@ -154,5 +177,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 longitudeDelta: 0.01
             )
         )
+    }
+
+    private func setupConstraints() {
+        self.globeView.view.translatesAutoresizingMaskIntoConstraints = false
+        self.globeView.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.globeView.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        self.globeView.view.heightAnchor.constraint(equalToConstant: 600.0).isActive = true
+        self.globeView.view.widthAnchor.constraint(equalToConstant: 600.0).isActive = true
     }
 }

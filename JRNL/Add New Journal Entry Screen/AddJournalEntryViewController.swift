@@ -26,9 +26,12 @@ class AddJournalEntryViewController: UIViewController, UITextFieldDelegate, UITe
         super.viewDidLoad()
         self.titleTextField.delegate = self
         self.bodyTextView.delegate = self
+        #if os(xrOS)
+            self.bodyTextView.borderStyle = .roundedRect
+        #endif
         self.updateSaveButtonState()
         self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
     }
 
     // MARK: - UITextFieldDelegate
