@@ -8,9 +8,35 @@ This is a demo app I built when going through the book [iOS 17 Programming for B
 This is the first complete iOS App I have ever built, therefore this codebase will serve as a playground for me to futher reshape it into something different.
 &nbsp;
 
+<p align="center">
+  <img src="screenshot-iphone-1.png" width="200" />
+  <img src="screenshot-iphone-2.png" width="200" />
+  <img src="screenshot-iphone-3.png" width="200" />
+  <img src="screenshot-iphone-4.png" width="200" />
+</p>
+&nbsp;
+
 This app allows submitting journal entries with title, body text, 5-star rating, picture and location. It provides a dynamic list view that supports search and delete, and can adjust the number of column on large screens. The saved journal entires can be dispayed as a lock screen or home screen widget. There is also a Map View screen presenting the journal entries as pins on the map, according to the location attached to the entires. When launching the App on Apple Vision Pro, there is a 3D earth model showing in front of the UI.
 &nbsp;
 
+<p align="center">
+  <img src="screenshot-ipad-1.png" width="400" />
+  <img src="screenshot-ipad-2.png" width="400" />
+</p>
+<p align="center">
+  <img src="screenshot-ipad-3.png" width="400" />
+  <img src="screenshot-ipad-4.png" width="400" />
+</p>
+<p align="center">
+  <img src="screenshot-visionpro-1.png" width="400" />
+  <img src="screenshot-visionpro-2.png" width="400" />
+</p>
+<p align="center">
+  <img src="screenshot-visionpro-3.png" width="400" />
+  <img src="screenshot-visionpro-4.png" width="400" />
+</p>
+
+&nbsp;
 ## Key technical facts
 The following skills and techniques were applied when building this app:
 - Storyboard navigation and UI layout
