@@ -12,7 +12,10 @@ This is the first complete iOS App I have ever built, therefore this codebase wi
   <img src="screenshot-iphone-1.png" width="200" />
   <img src="screenshot-iphone-2.png" width="200" />
   <img src="screenshot-iphone-3.png" width="200" />
+</p>
+<p align="center">
   <img src="screenshot-iphone-4.png" width="200" />
+  <img src="screenshot-iphone-5.png" width="200" />
 </p>
 &nbsp;
 
@@ -35,9 +38,9 @@ This app allows submitting journal entries with title, body text, 5-star rating,
   <img src="screenshot-visionpro-3.png" width="400" />
   <img src="screenshot-visionpro-4.png" width="400" />
 </p>
-
 &nbsp;
-## Key technical facts
+
+\## Key technical facts
 The following skills and techniques were applied when building this app:
 - Storyboard navigation and UI layout
 - Swift and MVC architecture
